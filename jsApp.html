@@ -103,10 +103,10 @@
       form.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const existingUserDetailsJSON = localStorage.getItem("userDetails");
-        const existingUserDetails = existingUserDetailsJSON
-          ? JSON.parse(existingUserDetailsJSON)
-          : {};
+        // const existingUserDetailsJSON = localStorage.getItem("userDetails");
+        // const existingUserDetails = existingUserDetailsJSON
+        //   ? JSON.parse(existingUserDetailsJSON)
+        //   : {};
 
         // Retrieve the values from the input fields
         const name = document.getElementById("exampleInputEmail1").value;
@@ -118,19 +118,25 @@
           pass: pass,
         };
 
-        axios.post("https://crudcrud.com/api/5310ce10588d4640b56ecff4d5b16c05/appointmentData",newUser).then((data)=>{
-          console.log(data);
-        }).catch((err)=>{
-          console.log(err);
-        })
+        axios
+          .post(
+            "https://crudcrud.com/api/5310ce10588d4640b56ecff4d5b16c05/appointmentData",
+            newUser
+          )
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         // Add the new user to the existing user details
-        existingUserDetails[newUser.name] = newUser;
+        // existingUserDetails[newUser.name] = newUser;
 
         // Convert the updated user details object to a JSON string
-        const updatedUserDetailsJSON = JSON.stringify(existingUserDetails);
+        // const updatedUserDetailsJSON = JSON.stringify(existingUserDetails);
 
         // Store the updated user details in the local storage
-        localStorage.setItem("userDetails", updatedUserDetailsJSON);
+        // localStorage.setItem("userDetails", updatedUserDetailsJSON);
 
         // Reset the form fields after submission
         document.getElementById("exampleInputEmail1").value = "";
@@ -138,7 +144,15 @@
       });
 
       function delfun() {
-        localStorage.removeItem("userDetails");
+        // localStorage.removeItem("userDetails");
+        axios
+          .delete("https://crudcrud.com/api/5310ce10588d4640b56ecff4d5b16c05/appointmentData/64bfb8d9c632b703e830f129")
+          .then((res) => {
+           console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         msg.innerHTML = "<h5>Deleted</h5>";
       }
 
